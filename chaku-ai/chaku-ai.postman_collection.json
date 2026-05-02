@@ -1,0 +1,326 @@
+{
+  "info": {
+    "name": "Chaku AI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Authenticate",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/user/authenticate",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"ajay.sankaran96@gmail.com\",\n  \"password\": \"password@123\",\n  \"type\": \"email\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/user",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"shortName\": \"John\",\n  \"email\": \"john.doe@example.com\",\n  \"mobile\": \"98765432\",\n  \"password\": \"password@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get User by Member ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/user?memberId=e2462a2d-dbca-45ee-b182-76367754634f",
+              "host": ["{{baseUrl}}"],
+              "path": ["user"],
+              "query": [{ "key": "memberId", "value": "e2462a2d-dbca-45ee-b182-76367754634f" }]
+            }
+          }
+        },
+        {
+          "name": "Get Users (Paginated)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users?page=1&perPage=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "perPage", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Users",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/users/search",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"groupId\": null,\n  \"excludeUserByGroupId\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Users Excluding Group Members",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/users/search",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"groupId\": \"<group-uuid-here>\",\n  \"excludeUserByGroupId\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Group",
+      "item": [
+        {
+          "name": "Create Group with Members",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/group",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupInfo\": {\n    \"name\": \"Friday Footballers\",\n    \"description\": \"Weekly football group\",\n    \"size\": 10\n  },\n  \"members\": [\n    {\n      \"memberId\": \"e2462a2d-dbca-45ee-b182-76367754634f\",\n      \"isAdmin\": true\n    },\n    {\n      \"memberId\": \"898328b4-15a1-4d41-831d-18c5a97c4c5c\",\n      \"isAdmin\": false\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Group by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/group?groupId=<group-uuid-here>",
+              "host": ["{{baseUrl}}"],
+              "path": ["group"],
+              "query": [{ "key": "groupId", "value": "<group-uuid-here>" }]
+            }
+          }
+        },
+        {
+          "name": "Get Groups",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/groups?name=&page=1&perPage=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["groups"],
+              "query": [
+                { "key": "name", "value": "" },
+                { "key": "page", "value": "1" },
+                { "key": "perPage", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Members to Group",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/group/members",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<group-uuid-here>\",\n  \"members\": [\n    {\n      \"memberId\": \"4ed6c3b5-6b7e-4e94-ad84-a59fb10ef850\",\n      \"isAdmin\": false\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Members by Group ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/group/members?groupId=<group-uuid-here>",
+              "host": ["{{baseUrl}}"],
+              "path": ["group", "members"],
+              "query": [{ "key": "groupId", "value": "<group-uuid-here>" }]
+            }
+          }
+        },
+        {
+          "name": "Get Groups by Member ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/member/group?memberId=e2462a2d-dbca-45ee-b182-76367754634f",
+              "host": ["{{baseUrl}}"],
+              "path": ["member", "group"],
+              "query": [{ "key": "memberId", "value": "e2462a2d-dbca-45ee-b182-76367754634f" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "item": [
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/events",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<group-uuid-here>\",\n  \"venueId\": \"8f8c298e-ef85-43d3-aa3e-cf75092ad60a\",\n  \"creatorId\": \"e2462a2d-dbca-45ee-b182-76367754634f\",\n  \"name\": \"Saturday Match\",\n  \"type\": \"FOOTBALL\",\n  \"params\": \"{}\",\n  \"totalCost\": 100,\n  \"currency\": \"SGD\",\n  \"noOfParticipants\": 10,\n  \"description\": \"Weekly Saturday match at Active SG\",\n  \"startDateTime\": \"2026-05-10T10:00:00\",\n  \"endDateTime\": \"2026-05-10T12:00:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Events by Group ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/group/events?groupId=<group-uuid-here>&getCountOfParticipants=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["group", "events"],
+              "query": [
+                { "key": "groupId", "value": "<group-uuid-here>" },
+                { "key": "getCountOfParticipants", "value": "true" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Events",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/events/search",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"groupId\": null,\n  \"venueId\": null,\n  \"status\": null,\n  \"type\": null,\n  \"venueName\": null,\n  \"getCountOfParticipants\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Add Event Member",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/events/members",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"<event-uuid-here>\",\n  \"groupId\": \"<group-uuid-here>\",\n  \"memberId\": \"e2462a2d-dbca-45ee-b182-76367754634f\",\n  \"action\": \"JOIN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Event Members",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/events/members?eventId=<event-uuid-here>",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "members"],
+              "query": [{ "key": "eventId", "value": "<event-uuid-here>" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Venue",
+      "item": [
+        {
+          "name": "Create Venue",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/venue",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Kallang Cage\",\n  \"address\": \"Stadium Walk, Singapore\",\n  \"latitude\": 1.3036,\n  \"longitude\": 103.8754,\n  \"openingTime\": \"08:00 AM\",\n  \"closingTime\": \"10:00 PM\",\n  \"rating\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Venues",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/venues",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"name\": \"\",\n  \"address\": \"\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Message",
+      "item": [
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/groups/events/messages",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<group-uuid-here>\",\n  \"eventId\": \"<event-uuid-here>\",\n  \"memberId\": \"e2462a2d-dbca-45ee-b182-76367754634f\",\n  \"name\": \"Ajay\",\n  \"content\": \"I will be there!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Messages",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/groups/events/messages?eventId=<event-uuid-here>&offset=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["groups", "events", "messages"],
+              "query": [
+                { "key": "eventId", "value": "<event-uuid-here>" },
+                { "key": "offset", "value": "0" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "item": [
+        {
+          "name": "Test AI (Ollama)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/test?query=Generate the names of 5 famous pirates",
+              "host": ["{{baseUrl}}"],
+              "path": ["test"],
+              "query": [{ "key": "query", "value": "Generate the names of 5 famous pirates" }]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
