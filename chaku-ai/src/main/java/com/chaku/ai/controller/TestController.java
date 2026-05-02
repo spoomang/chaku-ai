@@ -1,9 +1,11 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.ai.ollama.api.OllamaModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +22,8 @@ public class TestController {
     }
 
     @GetMapping
-    public String test(@RequestParam String query) {
-        return chatModel.call(
+    public ResponseEntity<ApiResponse<String>> test(@RequestParam String query) {
+        String result = chatModel.call(
             new Prompt(
                 query,
                 OllamaChatOptions.builder()
@@ -29,5 +31,6 @@ public class TestController {
                     .temperature(0.4)
                     .build()
             )).getResult().getOutput().getText();
+        return ResponseEntity.ok(new ApiResponse<>(result));
     }
 }

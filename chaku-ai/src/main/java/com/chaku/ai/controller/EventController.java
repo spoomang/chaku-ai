@@ -1,5 +1,6 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import com.chaku.ai.model.event.*;
 import com.chaku.ai.service.EventMemberService;
 import com.chaku.ai.service.EventService;
@@ -22,31 +23,31 @@ public class EventController {
     }
 
     @PostMapping("/events")
-    public ResponseEntity<Map<String, UUID>> createEvent(@RequestBody CreateEventRequest request) {
+    public ResponseEntity<ApiResponse<Map<String, UUID>>> createEvent(@RequestBody CreateEventRequest request) {
         UUID eventId = eventService.createEvent(request);
-        return ResponseEntity.ok(Map.of("eventId", eventId));
+        return ResponseEntity.ok(new ApiResponse<>(Map.of("eventId", eventId)));
     }
 
     @GetMapping("/group/events")
-    public ResponseEntity<List<EventDetailResponse>> getEventsByGroup(
+    public ResponseEntity<ApiResponse<List<EventDetailResponse>>> getEventsByGroup(
             @RequestParam String groupId,
             @RequestParam(defaultValue = "false") boolean getCountOfParticipants) {
-        return ResponseEntity.ok(eventService.getEventsByGroupId(groupId, getCountOfParticipants));
+        return ResponseEntity.ok(new ApiResponse<>(eventService.getEventsByGroupId(groupId, getCountOfParticipants)));
     }
 
     @PostMapping("/events/search")
-    public ResponseEntity<List<EventDetailResponse>> searchEvents(@RequestBody SearchEventRequest request) {
-        return ResponseEntity.ok(eventService.searchEvents(request));
+    public ResponseEntity<ApiResponse<List<EventDetailResponse>>> searchEvents(@RequestBody SearchEventRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(eventService.searchEvents(request)));
     }
 
     @PostMapping("/events/members")
-    public ResponseEntity<Map<String, String>> addEventMember(@RequestBody AddEventMemberRequest request) {
+    public ResponseEntity<ApiResponse<Map<String, String>>> addEventMember(@RequestBody AddEventMemberRequest request) {
         eventMemberService.addEventMember(request);
-        return ResponseEntity.ok(Map.of("status", "CONFIRMED"));
+        return ResponseEntity.ok(new ApiResponse<>(Map.of("status", "CONFIRMED")));
     }
 
     @GetMapping("/events/members")
-    public ResponseEntity<List<EventMemberDetailResponse>> getEventMembers(@RequestParam String eventId) {
-        return ResponseEntity.ok(eventMemberService.getEventMembers(eventId));
+    public ResponseEntity<ApiResponse<List<EventMemberDetailResponse>>> getEventMembers(@RequestParam String eventId) {
+        return ResponseEntity.ok(new ApiResponse<>(eventMemberService.getEventMembers(eventId)));
     }
 }

@@ -1,5 +1,6 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import com.chaku.ai.model.PaginationResponse;
 import com.chaku.ai.model.user.CreateUserRequest;
 import com.chaku.ai.model.user.SearchUsersRequest;
@@ -20,24 +21,24 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<UserResponse> createUser(@RequestBody CreateUserRequest request) {
-        return ResponseEntity.ok(userService.createUser(request));
+    public ResponseEntity<ApiResponse<UserResponse>> createUser(@RequestBody CreateUserRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(userService.createUser(request)));
     }
 
     @GetMapping("/user")
-    public ResponseEntity<UserResponse> getUser(@RequestParam String memberId) {
-        return ResponseEntity.ok(userService.getUserByMemberId(memberId));
+    public ResponseEntity<ApiResponse<UserResponse>> getUser(@RequestParam String memberId) {
+        return ResponseEntity.ok(new ApiResponse<>(userService.getUserByMemberId(memberId)));
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserResponse>> getUsers(
+    public ResponseEntity<ApiResponse<List<UserResponse>>> getUsers(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int perPage) {
-        return ResponseEntity.ok(userService.getUsers(page, perPage));
+        return ResponseEntity.ok(new ApiResponse<>(userService.getUsers(page, perPage)));
     }
 
     @PostMapping("/users/search")
-    public ResponseEntity<PaginationResponse<UserResponse>> searchUsers(@RequestBody SearchUsersRequest request) {
-        return ResponseEntity.ok(userService.searchUsers(request));
+    public ResponseEntity<ApiResponse<PaginationResponse<UserResponse>>> searchUsers(@RequestBody SearchUsersRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(userService.searchUsers(request)));
     }
 }

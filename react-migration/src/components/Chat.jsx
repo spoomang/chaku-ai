@@ -12,9 +12,9 @@ export default function Chat({ eventId, groupId, userId, userName, token }) {
     const interval = setInterval(async () => {
       if (isSendingRef.current) return
       const res = await getMessages(eventId, offsetRef.current, token)
-      if ((!res.Status || res.Status <= 200) && res.message?.length > 0) {
-        offsetRef.current += res.message.length
-        setMessages(prev => [...prev, ...res.message])
+      if (Array.isArray(res) && res.length > 0) {
+        offsetRef.current += res.length
+        setMessages(prev => [...prev, ...res])
       }
     }, 1000)
     return () => clearInterval(interval)

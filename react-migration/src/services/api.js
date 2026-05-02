@@ -7,7 +7,8 @@ async function request(path, options = {}) {
     headers: { 'Content-Type': 'application/json', ...headers },
     ...rest,
   })
-  return res.json()
+  const json = await res.json()
+  return json.data !== undefined ? json.data : json
 }
 
 export function authenticate(userId, password) {

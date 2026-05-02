@@ -1,5 +1,6 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import com.chaku.ai.model.venue.CreateVenueRequest;
 import com.chaku.ai.model.venue.SearchVenueRequest;
 import com.chaku.ai.model.venue.VenueResponse;
@@ -21,12 +22,12 @@ public class VenueController {
     }
 
     @PostMapping("/venue")
-    public ResponseEntity<VenueResponse> createVenue(@RequestBody CreateVenueRequest request) {
-        return ResponseEntity.ok(venueService.createVenue(request));
+    public ResponseEntity<ApiResponse<VenueResponse>> createVenue(@RequestBody CreateVenueRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(venueService.createVenue(request)));
     }
 
     @PostMapping("/venues")
-    public ResponseEntity<List<VenueResponse>> getVenues(@RequestBody SearchVenueRequest request) {
-        return ResponseEntity.ok(venueService.getVenues(request));
+    public ResponseEntity<ApiResponse<List<VenueResponse>>> getVenues(@RequestBody SearchVenueRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(venueService.getVenues(request)));
     }
 }

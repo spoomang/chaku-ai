@@ -1,5 +1,6 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import com.chaku.ai.model.auth.AuthRequest;
 import com.chaku.ai.model.auth.AuthResponse;
 import com.chaku.ai.service.AuthService;
@@ -20,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
-        return ResponseEntity.ok(authService.authenticate(request));
+    public ResponseEntity<ApiResponse<AuthResponse>> authenticate(@RequestBody AuthRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(authService.authenticate(request)));
     }
 }

@@ -1,5 +1,6 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import com.chaku.ai.model.message.MessageResponse;
 import com.chaku.ai.model.message.SendMessageRequest;
 import com.chaku.ai.service.MessageService;
@@ -21,15 +22,15 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> sendMessage(@RequestBody SendMessageRequest request) {
+    public ResponseEntity<ApiResponse<Map<String, String>>> sendMessage(@RequestBody SendMessageRequest request) {
         messageService.createMessage(request);
-        return ResponseEntity.ok(Map.of("status", "Ok!"));
+        return ResponseEntity.ok(new ApiResponse<>(Map.of("status", "Ok!")));
     }
 
     @GetMapping
-    public ResponseEntity<List<MessageResponse>> retrieveMessages(
+    public ResponseEntity<ApiResponse<List<MessageResponse>>> retrieveMessages(
             @RequestParam UUID eventId,
             @RequestParam(defaultValue = "0") int offset) {
-        return ResponseEntity.ok(messageService.retrieveMessages(eventId, offset));
+        return ResponseEntity.ok(new ApiResponse<>(messageService.retrieveMessages(eventId, offset)));
     }
 }

@@ -1,5 +1,6 @@
 package com.chaku.ai.controller;
 
+import com.chaku.ai.model.ApiResponse;
 import com.chaku.ai.model.group.AddMembersRequest;
 import com.chaku.ai.model.group.CreateGroupRequest;
 import com.chaku.ai.model.group.GroupMemberResponse;
@@ -20,35 +21,35 @@ public class GroupController {
     }
 
     @PostMapping("/group")
-    public ResponseEntity<GroupResponse> createGroup(@RequestBody CreateGroupRequest request) {
-        return ResponseEntity.ok(groupService.createGroupWithMembers(request));
+    public ResponseEntity<ApiResponse<GroupResponse>> createGroup(@RequestBody CreateGroupRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(groupService.createGroupWithMembers(request)));
     }
 
     @GetMapping("/group")
-    public ResponseEntity<GroupResponse> getGroup(@RequestParam String groupId) {
-        return ResponseEntity.ok(groupService.getGroupById(groupId));
+    public ResponseEntity<ApiResponse<GroupResponse>> getGroup(@RequestParam String groupId) {
+        return ResponseEntity.ok(new ApiResponse<>(groupService.getGroupById(groupId)));
     }
 
     @GetMapping("/groups")
-    public ResponseEntity<List<GroupResponse>> getGroups(
+    public ResponseEntity<ApiResponse<List<GroupResponse>>> getGroups(
             @RequestParam(required = false) String name,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int perPage) {
-        return ResponseEntity.ok(groupService.getGroups(name, page, perPage));
+        return ResponseEntity.ok(new ApiResponse<>(groupService.getGroups(name, page, perPage)));
     }
 
     @PostMapping("/group/members")
-    public ResponseEntity<List<GroupMemberResponse>> addMembers(@RequestBody AddMembersRequest request) {
-        return ResponseEntity.ok(groupService.addMembersToGroup(request));
+    public ResponseEntity<ApiResponse<List<GroupMemberResponse>>> addMembers(@RequestBody AddMembersRequest request) {
+        return ResponseEntity.ok(new ApiResponse<>(groupService.addMembersToGroup(request)));
     }
 
     @GetMapping("/group/members")
-    public ResponseEntity<List<GroupMemberResponse>> getMembers(@RequestParam String groupId) {
-        return ResponseEntity.ok(groupService.getMembersByGroupId(groupId));
+    public ResponseEntity<ApiResponse<List<GroupMemberResponse>>> getMembers(@RequestParam String groupId) {
+        return ResponseEntity.ok(new ApiResponse<>(groupService.getMembersByGroupId(groupId)));
     }
 
     @GetMapping("/member/group")
-    public ResponseEntity<List<GroupResponse>> getGroupsByMember(@RequestParam String memberId) {
-        return ResponseEntity.ok(groupService.getGroupsByMemberId(memberId));
+    public ResponseEntity<ApiResponse<List<GroupResponse>>> getGroupsByMember(@RequestParam String memberId) {
+        return ResponseEntity.ok(new ApiResponse<>(groupService.getGroupsByMemberId(memberId)));
     }
 }

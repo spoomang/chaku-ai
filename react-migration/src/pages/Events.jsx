@@ -31,9 +31,9 @@ export default function Events() {
 
   async function fetchVenues() {
     const res = await getVenues(auth.token)
-    if (res.venues && res.venues.length > 0) {
-      setVenues(res.venues)
-      setVenueId(res.venues[0].id)
+    if (Array.isArray(res) && res.length > 0) {
+      setVenues(res)
+      setVenueId(res[0].id)
     }
   }
 
