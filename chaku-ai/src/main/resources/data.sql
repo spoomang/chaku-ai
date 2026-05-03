@@ -4,7 +4,7 @@ VALUES
     ('7c3ce97d-6b92-48ff-82a6-e185f3f631e5', 'Premier Pitch Kalsa', 'Baleister Road', -3.2191864, 40.1168906, '09:00 AM', '11:00 PM', 4, '2024-01-20 14:41:12.994', NULL, '2024-01-20 14:41:12.994', NULL, NULL);
 
 INSERT INTO "user" (member_id, name, short_name, email, mobile, status, create_time, created_by, update_time, updated_by, delete_time, password) VALUES
-    ('e2462a2d-dbca-45ee-b182-76367754634f', 'Ajay Sankaran',   'ajay',      'ajay.sankaran96@gmail.com',  '8015618830',   'ACTIVE', '2024-01-28 15:41:33.442', NULL, '2024-01-28 15:41:33.442', NULL, NULL, 'password@123'),
+    ('e2462a2d-dbca-45ee-b182-76367754634f', 'Sandeep P',   'sandeep',      'san@gmail.com',  '8015618830',   'ACTIVE', '2024-01-28 15:41:33.442', NULL, '2024-01-28 15:41:33.442', NULL, NULL, 'password@123'),
     ('898328b4-15a1-4d41-831d-18c5a97c4c5c', 'Welby Causby',    'Welby',     'wcausby1@smh.com.au',        '441 216 3615', 'ACTIVE', '2024-01-28 15:41:33.442', NULL, '2024-01-28 15:41:33.442', NULL, NULL, 'password@123'),
     ('4ed6c3b5-6b7e-4e94-ad84-a59fb10ef850', 'Olenolin Lokier', 'Olenolin',  'olokier2@sogou.com',         '571 367 5260', 'ACTIVE', '2024-01-28 15:41:33.442', NULL, '2024-01-28 15:41:33.442', NULL, NULL, 'password@123'),
     ('cd1eb49d-a5c9-4f04-bc3a-26e698f36dfe', 'Biron Espie',     'Biron',     'bespie3@example.com',        '971 162 3542', 'ACTIVE', '2024-01-28 15:41:33.442', NULL, '2024-01-28 15:41:33.442', NULL, NULL, 'password@123'),
