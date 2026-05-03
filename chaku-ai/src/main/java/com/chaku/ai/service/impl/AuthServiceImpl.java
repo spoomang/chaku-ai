@@ -1,4 +1,6 @@
-package com.chaku.ai.service;
+package com.chaku.ai.service.impl;
+
+import com.chaku.ai.service.AuthService;
 
 import com.chaku.ai.model.auth.AuthRequest;
 import com.chaku.ai.model.auth.AuthResponse;

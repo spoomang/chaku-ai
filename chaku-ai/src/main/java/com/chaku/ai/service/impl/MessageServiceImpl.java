@@ -1,4 +1,6 @@
-package com.chaku.ai.service;
+package com.chaku.ai.service.impl;
+
+import com.chaku.ai.service.MessageService;
 
 import com.chaku.ai.entity.MessageEntity;
 import com.chaku.ai.model.message.MessageResponse;

@@ -1,4 +1,6 @@
-package com.chaku.ai.service;
+package com.chaku.ai.service.impl;
+
+import com.chaku.ai.service.GroupService;
 
 import com.chaku.ai.entity.GroupEntity;
 import com.chaku.ai.entity.GroupMemberEntity;

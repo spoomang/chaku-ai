@@ -1,4 +1,6 @@
-package com.chaku.ai.service;
+package com.chaku.ai.service.impl;
+
+import com.chaku.ai.service.VenueService;
 
 import com.chaku.ai.entity.VenueEntity;
 import com.chaku.ai.model.venue.CreateVenueRequest;

@@ -1,4 +1,7 @@
-package com.chaku.ai.service;
+package com.chaku.ai.service.impl;
+
+import com.chaku.ai.service.EventMemberService;
+import com.chaku.ai.service.EventService;
 
 import com.chaku.ai.entity.EventEntity;
 import com.chaku.ai.model.event.CreateEventRequest;
