@@ -1,10 +1,11 @@
 const BASE_URL = 'http://localhost:8080'
 
 async function request(path, options = {}) {
-  const { headers = {}, ...rest } = options
+  const { token, headers = {}, ...rest } = options
+  const authHeader = token ? { Authorization: `Bearer ${token}` } : {}
   const res = await fetch(`${BASE_URL}${path}`, {
     mode: 'cors',
-    headers: { 'Content-Type': 'application/json', ...headers },
+    headers: { 'Content-Type': 'application/json', ...authHeader, ...headers },
     ...rest,
   })
   const json = await res.json()
@@ -23,75 +24,53 @@ export function createUser(data) {
 }
 
 export function getUsers(token) {
-  return request('/users', { headers: { 'x-auth': token } })
+  return request('/users', { token })
 }
 
 export function getMyGroups(userId, token) {
-  return request(`/member/group?memberId=${userId}`, { headers: { 'x-auth': token } })
+  return request(`/member/group?memberId=${userId}`, { token })
 }
 
 export function getAllGroups(token) {
-  return request('/groups', { headers: { 'x-auth': token } })
+  return request('/groups', { token })
 }
 
 export function createGroup(data, token) {
-  return request('/group', {
-    method: 'POST',
-    headers: { 'x-auth': token },
-    body: JSON.stringify(data),
-  })
+  return request('/group', { method: 'POST', token, body: JSON.stringify(data) })
 }
 
 export function joinGroup(groupId, memberId, token) {
   return request('/group/members', {
     method: 'POST',
-    headers: { 'x-auth': token },
+    token,
     body: JSON.stringify({ groupId, members: [{ memberId }] }),
   })
 }
 
 export function getGroupEvents(groupId, token) {
-  return request(`/group/events?groupId=${groupId}`, { headers: { 'x-auth': token } })
+  return request(`/group/events?groupId=${groupId}`, { token })
 }
 
 export function createEvent(data, token) {
-  return request('/events', {
-    method: 'POST',
-    headers: { 'x-auth': token },
-    body: JSON.stringify(data),
-  })
+  return request('/events', { method: 'POST', token, body: JSON.stringify(data) })
 }
 
 export function getVenues(token) {
-  return request('/venues', {
-    method: 'POST',
-    headers: { 'x-auth': token },
-    body: JSON.stringify({}),
-  })
+  return request('/venues', { method: 'POST', token, body: JSON.stringify({}) })
 }
 
 export function getEventMembers(eventId, token) {
-  return request(`/events/members?eventId=${eventId}`, { headers: { 'x-auth': token } })
+  return request(`/events/members?eventId=${eventId}`, { token })
 }
 
 export function joinEvent(data, token) {
-  return request('/events/members', {
-    method: 'POST',
-    headers: { 'x-auth': token },
-    body: JSON.stringify(data),
-  })
+  return request('/events/members', { method: 'POST', token, body: JSON.stringify(data) })
 }
 
 export function getMessages(eventId, offset, token) {
-  return request(`/groups/events/messages?eventId=${eventId}&offset=${offset}`, {
-    headers: { 'x-auth': token },
-  })
+  return request(`/groups/events/messages?eventId=${eventId}&offset=${offset}`, { token })
 }
 
 export function sendMessage(data, token) {
-  return request('/groups/events/messages', {
-    method: 'POST',
-    headers: { 'x-auth': token },
-    body: JSON.stringify(data),
-  })
+  return request('/groups/events/messages', { method: 'POST', token, body: JSON.stringify(data) })
 }
