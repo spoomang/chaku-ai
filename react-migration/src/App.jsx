@@ -5,6 +5,7 @@ import Users from './pages/Users'
 import Groups from './pages/Groups'
 import Events from './pages/Events'
 import EventDetails from './pages/EventDetails'
+import Forms from './pages/Forms'
 import SnakeGame from './snake/SnakeGame'
 
 function ProtectedRoute({ children }) {
@@ -24,6 +25,7 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path="/users/:userId/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
+        <Route path="/users/:userId/forms" element={<ProtectedRoute><Forms /></ProtectedRoute>} />
         <Route path="/users/:userId/groups/:groupId/events" element={<ProtectedRoute><Events /></ProtectedRoute>} />
         <Route path="/users/:userId/groups/:groupId/events/:eventId/details" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} />
       </Route>

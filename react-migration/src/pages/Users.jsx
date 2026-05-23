@@ -93,7 +93,7 @@ export default function Users() {
           <div className="modal-card" onClick={e => e.stopPropagation()}>
             <h3 className="modal-title">Hi, {selectedUser.name}</h3>
             <p className="modal-subtitle">What would you like to do?</p>
-            <div className="activity-grid">
+            <div className="activity-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
               <button
                 className="activity-btn"
                 onClick={() => navigate('/snake', { state: { user: selectedUser } })}
@@ -107,6 +107,13 @@ export default function Users() {
               >
                 <span className="activity-icon">📅</span>
                 Event Management
+              </button>
+              <button
+                className="activity-btn"
+                onClick={() => navigate(`/users/${selectedUser.memberId}/forms`, { state: { user: selectedUser } })}
+              >
+                <span className="activity-icon">📋</span>
+                Forms & Tickets
               </button>
             </div>
             <button className="modal-cancel" onClick={() => setSelectedUser(null)}>Cancel</button>

@@ -74,3 +74,27 @@ export function getMessages(eventId, offset, token) {
 export function sendMessage(data, token) {
   return request('/groups/events/messages', { method: 'POST', token, body: JSON.stringify(data) })
 }
+
+export function getForms(token) {
+  return request('/forms', { token })
+}
+
+export function getForm(id, token) {
+  return request(`/forms/${id}`, { token })
+}
+
+export function createForm(data, token) {
+  return request('/forms', { method: 'POST', token, body: JSON.stringify(data) })
+}
+
+export function createTicket(data, token) {
+  return request('/tickets', { method: 'POST', token, body: JSON.stringify(data) })
+}
+
+export function getTickets(token) {
+  return request('/tickets', { token })
+}
+
+export function getTicket(id, token) {
+  return request(`/tickets/${id}`, { token })
+}
