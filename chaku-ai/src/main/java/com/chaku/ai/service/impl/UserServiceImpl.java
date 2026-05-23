@@ -69,6 +69,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserResponse toResponse(UserEntity u) {
-        return new UserResponse(u.getMemberId(), u.getName(), u.getShortName(), u.getEmail(), u.getMobile(), u.getStatus());
+        return new UserResponse(u.getId(), u.getMemberId(), u.getName(), u.getShortName(), u.getEmail(), u.getMobile(), u.getStatus());
     }
 }
